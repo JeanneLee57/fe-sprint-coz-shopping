@@ -1,5 +1,6 @@
 .bubble
 {
+z-index: 1;
 position: absolute;
 right: 1%;
 width: 200px;
@@ -16,6 +17,7 @@ box-shadow: 0 -1px 10px -2px rgba(0, 0, 0, 0.5);
 
 .bubble:after
 {
+z-index: 1;
 content: '';
 position: absolute;
 border-style: solid;
@@ -30,6 +32,7 @@ transform: translate(20px, 3px);
 }
 
 .menu{
+text-decoration: none;
 display: flex;
 align-items: center;
 justify-content: center;
@@ -43,4 +46,12 @@ flex-grow: 1;
 
 .logo{
     margin-right: 5px;
+}
+
+a:visited{
+  color:black;
+}
+
+a:visited{
+  color:black;
 }

@@ -2,6 +2,7 @@ import styles from "./Header.module.css";
 import logo from "../assets/image1.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
 function Header(prop) {
   const handleDropdown = () => {
@@ -10,7 +11,10 @@ function Header(prop) {
   return (
     <div className={styles.header}>
       <div className={styles.wrapper}>
-        <img className={styles.logo} src={logo}></img>
+        <Link to="/">
+          {" "}
+          <img className={styles.logo} src={logo}></img>
+        </Link>
         <span className={styles.title}>COZ Shopping</span>
       </div>
       <span className={styles.button}></span>

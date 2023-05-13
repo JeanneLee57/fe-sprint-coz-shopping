@@ -1,5 +1,22 @@
 * {
     margin:0;
     padding:0;
-    box-sizing: border-box
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+footer{
+    margin: 50px 0;
+    border-top: 0.5px solid #888888;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }

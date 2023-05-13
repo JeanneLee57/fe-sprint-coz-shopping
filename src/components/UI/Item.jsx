@@ -1,6 +1,6 @@
 import styles from "./Item.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-regular-svg-icons";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 const Item = ({ item }) => {
   return (
@@ -10,6 +10,7 @@ const Item = ({ item }) => {
           className={styles.image}
           src={item.image_url ? item.image_url : item.brand_image_url}
         />
+        <FontAwesomeIcon className={styles.star} size="lg" icon={faStar} />
       </div>
       <div className={styles.detail}>
         {
@@ -26,12 +27,16 @@ const Item = ({ item }) => {
         )}
       </div>
       <div className={styles.detail}>
-        <span></span>
+        <span>{item.sub_title ? item.sub_title : ""}</span>
         <span className={styles.numbers}>
           {item.type === "Product"
-            ? `${item.price}원`
+            ? `${item.price
+                .toString()
+                .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}원`
             : item.type === "Brand"
             ? item.follower
+                .toString()
+                .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
             : ""}
         </span>
       </div>
