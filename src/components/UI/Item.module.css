@@ -26,6 +26,13 @@
     color: rgba(223, 223, 223, 0.81);
 }
 
+.yellowstar{
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    color: #FFD361;;
+}
+
 .title{
     font-size: 17px;
     display: inline;

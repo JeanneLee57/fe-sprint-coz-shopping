@@ -8,7 +8,7 @@ function Dropdown() {
   return (
     <>
       <div className={styles.bubble}>
-        <div className={styles.menu}>ooo님 안녕하세요!</div>
+        <div className={styles.menu}>kuromi님 안녕하세요!</div>
 
         <div className={styles.menu}>
           <Link to="/products">
