@@ -10,13 +10,13 @@ function Header(prop) {
   };
   return (
     <div className={styles.header}>
-      <div className={styles.wrapper}>
-        <Link to="/">
-          {" "}
-          <img className={styles.logo} src={logo}></img>
-        </Link>
-        <span className={styles.title}>COZ Shopping</span>
-      </div>
+      {" "}
+      <Link to="/">
+        <div className={styles.wrapper}>
+          <img className={styles.logo} src={logo}></img>{" "}
+          <span className={styles.title}>COZ Shopping</span>{" "}
+        </div>{" "}
+      </Link>
       <span className={styles.button}></span>
       <FontAwesomeIcon
         onClick={handleDropdown}
