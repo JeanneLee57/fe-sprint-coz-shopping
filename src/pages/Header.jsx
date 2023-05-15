@@ -8,11 +8,14 @@ function Header(prop) {
   const handleDropdown = () => {
     prop.setShowDropdown(!prop.showDropdown);
   };
+  const closeDropdown = () => {
+    prop.setShowDropdown(false);
+  };
   return (
     <div className={styles.header}>
       {" "}
       <Link to="/">
-        <div className={styles.wrapper}>
+        <div className={styles.wrapper} onClick={closeDropdown}>
           <img className={styles.logo} src={logo}></img>{" "}
           <span className={styles.title}>COZ Shopping</span>{" "}
         </div>{" "}

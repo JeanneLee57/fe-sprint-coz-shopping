@@ -1,7 +1,8 @@
 .bubble
 {
 z-index: 1;
-position: absolute;
+position: fixed;
+top: 70px;
 right: 1%;
 width: 200px;
 height: 150px;

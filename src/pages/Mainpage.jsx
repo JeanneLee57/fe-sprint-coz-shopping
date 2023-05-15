@@ -1,12 +1,9 @@
-import BookmarkList from "./BookmarkList";
-import ProductList from "./Productlist";
+import BookmarkList from "../components/BookmarkList";
+import ProductList from "../components/Productlist";
 import styles from "./Mainpage.module.css";
 import { useState } from "react";
 
-function Mainpage() {
-  const bookmark = JSON.parse(localStorage.getItem("bookmark"));
-  const [bookmarkState, setBookmarkState] = useState(bookmark);
-
+function Mainpage({ bookmarkState, setBookmarkState }) {
   return (
     <div>
       <ProductList

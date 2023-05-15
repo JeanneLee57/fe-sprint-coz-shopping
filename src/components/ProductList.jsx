@@ -20,6 +20,7 @@ function ProductList({ bookmarkState, setBookmarkState }) {
         setData(res.data);
       });
   }, []);
+
   return (
     <div className={styles.mainbox}>
       <h1 className={styles.title}>상품 리스트</h1>
