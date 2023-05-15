@@ -83,14 +83,18 @@ function ProductListPage({ bookmarkState, setBookmarkState }) {
     <div className={styles.mainbox}>
       <Types currentType={currentType} setCurrentType={setCurrentType} />
       <div className={styles.itemBox}>
-        {showData.map((item) => (
-          <Item
-            item={item}
-            isBookmarked={checkIsBookmarked(item)}
-            bookmarkState={bookmarkState}
-            setBookmarkState={setBookmarkState}
-          />
-        ))}
+        {showData
+          .filter((item) =>
+            currentType === "all" ? true : item.type === currentType
+          )
+          .map((item) => (
+            <Item
+              item={item}
+              isBookmarked={checkIsBookmarked(item)}
+              bookmarkState={bookmarkState}
+              setBookmarkState={setBookmarkState}
+            />
+          ))}
       </div>
       {load && (
         <div className={styles.ldsring}>
