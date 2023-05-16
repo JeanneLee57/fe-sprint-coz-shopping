@@ -25,7 +25,6 @@ function BookmarkListPage({ bookmarkState, setBookmarkState }) {
   }, []);
 
   useEffect(() => {
-    console.log("첫 실행 " + page + "페이지");
     setShowData(
       bookmarkState.filter((item) =>
         currentType === "all" ? true : item.type === currentType
@@ -74,7 +73,6 @@ function BookmarkListPage({ bookmarkState, setBookmarkState }) {
     }
     // 1초 후에 setShowData를 실행하는 setTimeout 예약
     timeoutRef.current = setTimeout(() => {
-      console.log("재실행 " + page + "페이지");
       setShowData((prev) => [
         ...prev,
         ...bookmarkState
