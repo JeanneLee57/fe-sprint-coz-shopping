@@ -3,10 +3,13 @@ import Modal from "./Modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
 
 const Item = ({ item, setBookmarkState, isBookmarked }) => {
   const [modalState, setModalState] = useState(false);
   const [willBookmarked, setWillBookmarked] = useState(false);
+  const notifyBookmark = () => toast("상품이 북마크에 추가되었을지도..?");
+  const notifyDeleteBookmark = () => toast("상품이 북마크에 삭제되었을지도..?");
 
   const handleModalOpen = () => {
     setModalState(true);
@@ -42,6 +45,7 @@ const Item = ({ item, setBookmarkState, isBookmarked }) => {
 
     localStorage.setItem("bookmark", JSON.stringify(bookmark));
     setBookmarkState(JSON.parse(localStorage.getItem("bookmark")));
+    isBookmarked ? notifyDeleteBookmark() : notifyBookmark();
   };
 
   return (
