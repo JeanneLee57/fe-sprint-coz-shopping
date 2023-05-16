@@ -1,5 +1,12 @@
 .mainbox{
-    margin: 30px 0;
+    margin: 70px 0;
+}
+
+.itemBox{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .title{
@@ -15,4 +22,5 @@ margin:10px;
 
 .listWrapper{
     display: flex;
+    margin: 15px 0;
 }
