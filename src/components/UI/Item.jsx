@@ -6,12 +6,29 @@ import { useState } from "react";
 
 const Item = ({ item, setBookmarkState, isBookmarked }) => {
   const [modalState, setModalState] = useState(false);
+  const [willBookmarked, setWillBookmarked] = useState(false);
+
   const handleModalOpen = () => {
     setModalState(true);
+    setWillBookmarked(isBookmarked);
   };
   const handleModalClose = () => {
+    if (isBookmarked && !willBookmarked) {
+      const bookmark = JSON.parse(localStorage.getItem("bookmark"));
+      const existingItemIndex = bookmark.findIndex((x) => x.id === item.id);
+      bookmark.splice(existingItemIndex, 1);
+      localStorage.setItem("bookmark", JSON.stringify(bookmark));
+      setBookmarkState(JSON.parse(localStorage.getItem("bookmark")));
+    }
+    if (!isBookmarked && willBookmarked) {
+      const bookmark = JSON.parse(localStorage.getItem("bookmark")) || [];
+      bookmark.unshift(item);
+      localStorage.setItem("bookmark", JSON.stringify(bookmark));
+      setBookmarkState(JSON.parse(localStorage.getItem("bookmark")));
+    }
     setModalState(false);
   };
+
   const handleBookmark = (e, item) => {
     const bookmark = JSON.parse(localStorage.getItem("bookmark")) || [];
     const existingItemIndex = bookmark.findIndex((x) => x.id === item.id);
@@ -23,14 +40,7 @@ const Item = ({ item, setBookmarkState, isBookmarked }) => {
       bookmark.unshift(item);
     }
 
-    // localStorage.setItem("bookmark", JSON.stringify(bookmark));
-    // if (e.currentTarget === e.target && modalState) {
-    //   setBookmarkState(JSON.parse(localStorage.getItem("bookmark")));
-    // } else if (!modalState) {
-    //   setBookmarkState(JSON.parse(localStorage.getItem("bookmark")));
-    // }
     localStorage.setItem("bookmark", JSON.stringify(bookmark));
-    if (modalState) setModalState(false);
     setBookmarkState(JSON.parse(localStorage.getItem("bookmark")));
   };
 
@@ -43,6 +53,8 @@ const Item = ({ item, setBookmarkState, isBookmarked }) => {
           isBookmarked={isBookmarked}
           handleBookmark={(e) => handleBookmark(e, item)}
           title={item.title || item.brand_name}
+          willBookmarked={willBookmarked}
+          setWillBookmarked={setWillBookmarked}
         />
       )}
       <div className={styles.item}>
