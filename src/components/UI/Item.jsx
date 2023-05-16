@@ -50,8 +50,6 @@ const Item = ({ item, setBookmarkState, isBookmarked }) => {
         <Modal
           imageUrl={item.image_url || item.brand_image_url}
           handleModalClose={handleModalClose}
-          isBookmarked={isBookmarked}
-          handleBookmark={(e) => handleBookmark(e, item)}
           title={item.title || item.brand_name}
           willBookmarked={willBookmarked}
           setWillBookmarked={setWillBookmarked}

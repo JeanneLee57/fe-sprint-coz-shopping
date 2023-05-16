@@ -7,8 +7,6 @@ import classes from "./Modal.module.css";
 const Modal = ({
   imageUrl,
   handleModalClose,
-  isBookmarked,
-  handleBookmark,
   title,
   willBookmarked,
   setWillBookmarked,
@@ -18,7 +16,7 @@ const Modal = ({
       handleModalClose();
     }
   };
-  const handelModalBookmark = () => {
+  const handleModalBookmark = () => {
     setWillBookmarked((prev) => !prev);
   };
 
@@ -38,7 +36,7 @@ const Modal = ({
           className={willBookmarked ? classes.bookcolor : classes.bookmark}
           size="lg"
           icon={faStar}
-          onClick={handelModalBookmark}
+          onClick={handleModalBookmark}
         />
       </div>
     </div>

@@ -2,7 +2,7 @@ import Header from "./pages/Header";
 import Dropdown from "./components/Dropdown";
 import Mainpage from "./pages/Mainpage";
 import ProductListPage from "./pages/ProductListPage";
-import BookmarkListPage from "./components/BookmarkListPage";
+import BookmarkListPage from "./pages/BookmarkListPage";
 import Footer from "./components/Footer";
 import { useState } from "react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";

@@ -13,11 +13,16 @@ function ProductList({ bookmarkState, setBookmarkState }) {
   };
   useEffect(() => {
     axios
-      .get("http://cozshopping.codestates-seb.link/api/v1/products?count=4", {
-        method: "GET",
-      })
+      .get("http://cozshopping.codestates-seb.link/api/v1/products?count=4")
       .then((res) => {
-        setData(res.data);
+        if (res.status >= 200 && res.status < 300) {
+          setData(res.data);
+        } else {
+          throw new Error(`API Error: ${res.status} ${res.statusText}`);
+        }
+      })
+      .catch((error) => {
+        console.error(error);
       });
   }, []);
 
