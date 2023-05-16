@@ -9,6 +9,12 @@ function ProductListPage({ bookmarkState, setBookmarkState }) {
   const [showData, setShowData] = useState([]);
   const [currentType, setCurrentType] = useState("all");
 
+  const obsRef = useRef(null); //observer Element
+  const [page, setPage] = useState(1); //현재 페이지
+  const [load, setLoad] = useState(false); //로딩 스피너
+  const preventRef = useRef(true); //옵저버 중복 실행 방지
+  const endRef = useRef(false); //모든 글 로드 확인
+
   const checkIsBookmarked = (item) => {
     if (bookmarkState) {
       return bookmarkState.some((x) => x.id === item.id);
@@ -35,18 +41,22 @@ function ProductListPage({ bookmarkState, setBookmarkState }) {
       });
   }, []);
 
+  /* 옵저버 생성 */
+  const obsHandler = (entries) => {
+    const target = entries[0];
+    if (target.isIntersecting && preventRef.current) {
+      preventRef.current = false; //옵저버 중복 실행 방지
+      setPage((prev) => prev + 1); //페이지 값 증가
+    }
+  };
+
+  /* 페칭 이후 보여줄 데이터 및 페이지 초기화 */
   useEffect(() => {
     setShowData(data.slice(0, 12));
     setPage(1);
   }, [data]);
 
-  /* 무한 스크롤 구현 */
-  const obsRef = useRef(null); //observer Element
-  const [page, setPage] = useState(1); //현재 페이지
-  const [load, setLoad] = useState(false); //로딩 스피너
-  const preventRef = useRef(true); //옵저버 중복 실행 방지
-  const endRef = useRef(false); //모든 글 로드 확인
-
+  /* 타입이 바뀌면 데이터 필터하고 페이지 초기화 */
   useEffect(() => {
     setShowData(
       data
@@ -58,29 +68,18 @@ function ProductListPage({ bookmarkState, setBookmarkState }) {
     setPage(1);
   }, [currentType]);
 
+  /* 페이지가 바뀌면 보여줄 데이터를 추가 */
   useEffect(() => {
     getPost();
   }, [page]);
 
-  const obsHandler = (entries) => {
-    //옵저버 콜백함수
-    const target = entries[0];
-    if (target.isIntersecting && preventRef.current) {
-      preventRef.current = false; //옵저버 중복 실행 방지
-      setPage((prev) => prev + 1); //페이지 값 증가
-    }
-  };
-
-  const timeoutRef = useRef(null);
-
+  let timer = null;
   const getPost = () => {
     setLoad(true);
-    // 이전에 예약된 setTimeout이 있으면 취소
-    if (timeoutRef.current) {
+    if (timer) {
       clearTimeout(timeoutRef.current);
     }
-    // 1초 후에 setShowData를 실행하는 setTimeout 예약
-    timeoutRef.current = setTimeout(() => {
+    timer = setTimeout(() => {
       setShowData((prev) => [
         ...prev,
         ...data
