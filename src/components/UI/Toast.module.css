@@ -1,0 +1,25 @@
+.toast{
+font-family: 'Inter';
+font-style: normal;
+font-weight: 700;
+font-size: 18px;
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 18px 24px;
+width: 300px;
+height: 60px;
+background: #FFFFFF;
+border: 1px solid rgba(0, 0, 0, 0.1);
+box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.15);
+border-radius: 12px;
+position: fixed;
+right: 5%;
+bottom: 10%
+}
+
+.star{
+  color: #FFD361;
+  margin-right: 10px;
+}

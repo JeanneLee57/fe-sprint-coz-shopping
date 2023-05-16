@@ -1,9 +1,11 @@
 import BookmarkList from "../components/BookmarkList";
 import ProductList from "../components/Productlist";
+import Toast from "../components/UI/Toast";
 import styles from "./Mainpage.module.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function Mainpage({ bookmarkState, setBookmarkState }) {
+  const [showToast, setShowToast] = useState(false);
   return (
     <div>
       <ProductList
@@ -14,6 +16,7 @@ function Mainpage({ bookmarkState, setBookmarkState }) {
         bookmarkState={bookmarkState}
         setBookmarkState={setBookmarkState}
       />
+      {showToast && <Toast />}
     </div>
   );
 }
