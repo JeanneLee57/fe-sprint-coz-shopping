@@ -1,11 +1,9 @@
 import Item from "../components/UI/Item";
 import Types from "../components/Types";
 import styles from "./ProductListPage.module.css";
-import { useEffect, useState, useRef } from "react";
-import axios from "axios";
+import { useState, useEffect, useRef } from "react";
 
-function ProductListPage({ bookmarkState, setBookmarkState }) {
-  const [data, setData] = useState([]);
+function BookmarkListPage({ bookmarkState, setBookmarkState }) {
   const [showData, setShowData] = useState([]);
   const [currentType, setCurrentType] = useState("all");
 
@@ -17,28 +15,22 @@ function ProductListPage({ bookmarkState, setBookmarkState }) {
   };
 
   useEffect(() => {
-    axios
-      .get("http://cozshopping.codestates-seb.link/api/v1/products", {
-        method: "GET",
-      })
-      .then((res) => {
-        setData(res.data);
-      })
-      .then(() => {
-        const observer = new IntersectionObserver(obsHandler, {
-          threshold: 1.0,
-        });
-        if (obsRef.current) observer.observe(obsRef.current);
-        return () => {
-          observer.disconnect();
-        };
-      });
+    const observer = new IntersectionObserver(obsHandler, {
+      threshold: 1.0,
+    });
+    if (obsRef.current) observer.observe(obsRef.current);
+    return () => {
+      observer.disconnect();
+    };
   }, []);
 
   useEffect(() => {
-    setShowData(data.slice(0, 12));
-    setPage(1);
-  }, [data]);
+    setShowData(
+      bookmarkState.filter((item) =>
+        currentType === "all" ? true : item.type === currentType
+      )
+    );
+  }, [bookmarkState]);
 
   /* 무한 스크롤 구현 */
   const obsRef = useRef(null); //observer Element
@@ -49,7 +41,7 @@ function ProductListPage({ bookmarkState, setBookmarkState }) {
 
   useEffect(() => {
     setShowData(
-      data
+      bookmarkState
         .filter((item) =>
           currentType === "all" ? true : item.type === currentType
         )
@@ -59,7 +51,7 @@ function ProductListPage({ bookmarkState, setBookmarkState }) {
   }, [currentType]);
 
   useEffect(() => {
-    getPost();
+    if (page !== 1) getPost();
   }, [page]);
 
   const obsHandler = (entries) => {
@@ -83,7 +75,7 @@ function ProductListPage({ bookmarkState, setBookmarkState }) {
     timeoutRef.current = setTimeout(() => {
       setShowData((prev) => [
         ...prev,
-        ...data
+        ...bookmarkState
           .filter((item) =>
             currentType === "all" ? true : item.type === currentType
           )
@@ -97,27 +89,31 @@ function ProductListPage({ bookmarkState, setBookmarkState }) {
   return (
     <div className={styles.mainbox}>
       <Types currentType={currentType} setCurrentType={setCurrentType} />
-      <div className={styles.itemBox}>
-        {showData.map((item) => (
-          <Item
-            item={item}
-            isBookmarked={checkIsBookmarked(item)}
-            bookmarkState={bookmarkState}
-            setBookmarkState={setBookmarkState}
-          />
-        ))}
-      </div>
-      {load && (
-        <div className={styles.ldsring}>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
+      <>
+        {" "}
+        <div className={styles.itemBox}>
+          {showData.map((item) => (
+            <Item
+              key={item.id_ + "_" + Math.random()}
+              item={item}
+              isBookmarked={checkIsBookmarked(item)}
+              bookmarkState={bookmarkState}
+              setBookmarkState={setBookmarkState}
+            />
+          ))}
         </div>
-      )}
-      <div ref={obsRef}></div>
+        {load && (
+          <div className={styles.ldsring}>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        )}
+        <div ref={obsRef}></div>
+      </>
     </div>
   );
 }
 
-export default ProductListPage;
+export default BookmarkListPage;
