@@ -1,9 +1,12 @@
 import Item from "../components/UI/Item";
 import Types from "../components/Types";
 import styles from "./ProductListPage.module.css";
+import Error from "../components/UI/Error";
 import { useState, useEffect, useRef } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-function BookmarkListPage({ bookmarkState, setBookmarkState }) {
+function BookmarkListPage({ bookmarkState = [], setBookmarkState }) {
   const [showData, setShowData] = useState([]);
   const [currentType, setCurrentType] = useState("all");
 
@@ -65,7 +68,7 @@ function BookmarkListPage({ bookmarkState, setBookmarkState }) {
 
   /* 페이지 변경시 보여줄 데이터를 재설정 */
   useEffect(() => {
-    if (page !== 1) getPost();
+    if (page !== 1 && !load) getPost();
   }, [page]);
 
   let timer = null;
@@ -73,7 +76,7 @@ function BookmarkListPage({ bookmarkState, setBookmarkState }) {
     setLoad(true);
     // 이전에 예약된 setTimeout이 있으면 취소
     if (timer) {
-      clearTimeout(timeoutRef.current);
+      clearTimeout(timer);
     }
     // 1초 후에 setShowData를 실행하는 setTimeout 예약
     timer = setTimeout(() => {
@@ -87,24 +90,34 @@ function BookmarkListPage({ bookmarkState, setBookmarkState }) {
       ]);
       preventRef.current = true;
       setLoad(false);
-    }, 1000);
+    }, 500);
   };
 
   return (
     <div className={styles.mainbox}>
+      <ToastContainer
+        position="bottom-right"
+        limit={3}
+        closeButton={true}
+        autoClose={3000}
+      />
       <Types currentType={currentType} setCurrentType={setCurrentType} />
       <>
         {" "}
         <div className={styles.itemBox}>
-          {showData.map((item) => (
-            <Item
-              key={item.id_ + "_" + Math.random()}
-              item={item}
-              isBookmarked={checkIsBookmarked(item)}
-              bookmarkState={bookmarkState}
-              setBookmarkState={setBookmarkState}
-            />
-          ))}
+          {bookmarkState && bookmarkState.length !== 0 ? (
+            showData.map((item) => (
+              <Item
+                key={item.id_ + "_" + Math.random()}
+                item={item}
+                isBookmarked={checkIsBookmarked(item)}
+                bookmarkState={bookmarkState}
+                setBookmarkState={setBookmarkState}
+              />
+            ))
+          ) : (
+            <Error />
+          )}
         </div>
         {load && (
           <div className={styles.ldsring}>
