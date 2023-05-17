@@ -5,7 +5,7 @@ function Error() {
   return (
     <div className={styles.error}>
       <img className={styles.kuromi} src={kuromi} />
-      <div>없어잉...</div>
+      <p>없어잉...</p>
     </div>
   );
 }

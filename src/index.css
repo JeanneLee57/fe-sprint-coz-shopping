@@ -5,6 +5,11 @@ box-sizing: border-box;
 text-decoration: none;
 }
 
+body{
+font-family: 'Inter';
+font-style: normal;
+}
+
 main{
 display: flex;
 flex-direction: column;
@@ -25,6 +30,4 @@ justify-content: center;
 --toastify-z-index: 9999;
 --toastify-color-progress-light: linear-gradient(to right, #e66465, #9198e5);
 --toastify-font-family: 'Inter';
---toastify-font-weight: 700;
---toastify-font-size: 20px;
 }

@@ -9,8 +9,8 @@ import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
 function App() {
   const [showDropdown, setShowDropdown] = useState(false);
-  const bookmark = JSON.parse(localStorage.getItem("bookmark"));
-  const [bookmarkState, setBookmarkState] = useState(bookmark);
+  // const bookmark = JSON.parse(localStorage.getItem("bookmark"));
+  const [bookmarkState, setBookmarkState] = useState([]);
 
   return (
     <>
