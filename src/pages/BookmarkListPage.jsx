@@ -13,7 +13,7 @@ function BookmarkListPage({ bookmarkState, setBookmarkState }) {
   const ITEMS_PER_PAGE = 12;
   const obsRef = useRef(null); //observer Element
   const [page, setPage] = useState(1); //현재 페이지
-  const [load, setLoad] = useState(false); //로딩 스피너
+  const [isLoading, setIsLoading] = useState(false); //로딩 스피너
   const preventRef = useRef(true); //옵저버 중복 실행 방지
   const endRef = useRef(false); //모든 글 로드 확인
 
@@ -69,12 +69,12 @@ function BookmarkListPage({ bookmarkState, setBookmarkState }) {
 
   /* 페이지 변경시 보여줄 데이터를 재설정 */
   useEffect(() => {
-    if (page !== 1 && !load) getPost();
+    if (page !== 1 && !isLoading) getPost();
   }, [page]);
 
   let timer = null;
   const getPost = () => {
-    setLoad(true);
+    setIsLoading(true);
     if (timer) {
       clearTimeout(timer);
     }
@@ -88,7 +88,7 @@ function BookmarkListPage({ bookmarkState, setBookmarkState }) {
           .slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE),
       ]);
       preventRef.current = true;
-      setLoad(false);
+      setIsLoading(false);
     }, 500);
   };
 
@@ -118,7 +118,7 @@ function BookmarkListPage({ bookmarkState, setBookmarkState }) {
             <Error />
           )}
         </div>
-        {load && (
+        {isLoading && (
           <div className={styles.ldsring}>
             <div></div>
             <div></div>
