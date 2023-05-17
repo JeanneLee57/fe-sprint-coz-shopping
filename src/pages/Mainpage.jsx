@@ -1,6 +1,5 @@
 import BookmarkList from "../components/BookmarkList";
-import ProductList from "../components/Productlist";
-import Toast from "../components/UI/Toast";
+import ProductList from "../components/ProductList";
 import styles from "./Mainpage.module.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

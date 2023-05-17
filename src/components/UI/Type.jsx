@@ -1,9 +1,9 @@
 import styles from "./Type.module.css";
-import all from "../../assets/type_all.png";
-import brand from "../../assets/type_brand.png";
-import category from "../../assets/type_category.png";
-import product from "../../assets/type_product.png";
-import special from "../../assets/type_special.png";
+import all from "../../assets/types_img/type_all.png";
+import brand from "../../assets/types_img/type_brand.png";
+import category from "../../assets/types_img/type_category.png";
+import product from "../../assets/types_img/type_product.png";
+import special from "../../assets/types_img/type_special.png";
 
 function Type({ type, currentType, setCurrentType }) {
   let imgSrc;

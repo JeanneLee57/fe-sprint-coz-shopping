@@ -2,55 +2,60 @@ import styles from "./Item.module.css";
 import Modal from "./Modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
-const Item = ({ item, setBookmarkState, isBookmarked }) => {
-  const [modalState, setModalState] = useState(false);
+const Item = ({ item, bookmarkState, setBookmarkState, isBookmarked }) => {
+  const [showModal, setShowModal] = useState(false);
   const [willBookmarked, setWillBookmarked] = useState(false);
   const notifyBookmark = () => toast("상품이 북마크에 추가되었을지도..?");
   const notifyDeleteBookmark = () => toast("상품이 북마크에 삭제되었을지도..?");
 
   const handleModalOpen = () => {
-    setModalState(true);
+    setShowModal(true);
     setWillBookmarked(isBookmarked);
   };
-  const handleModalClose = () => {
-    if (isBookmarked && !willBookmarked) {
-      const bookmark = JSON.parse(localStorage.getItem("bookmark"));
-      const existingItemIndex = bookmark.findIndex((x) => x.id === item.id);
-      bookmark.splice(existingItemIndex, 1);
-      localStorage.setItem("bookmark", JSON.stringify(bookmark));
-      setBookmarkState(JSON.parse(localStorage.getItem("bookmark")));
+  const updateBookmarkState = () => {
+    if (isBookmarked) {
+      const existingItemIndex = bookmarkState.findIndex(
+        (x) => x.id === item.id
+      );
+      const updatedBookmarkState = [...bookmarkState];
+      updatedBookmarkState.splice(existingItemIndex, 1);
+      return updatedBookmarkState;
+    } else {
+      const updatedBookmarkState = [item, ...bookmarkState];
+      return updatedBookmarkState;
     }
-    if (!isBookmarked && willBookmarked) {
-      const bookmark = JSON.parse(localStorage.getItem("bookmark")) || [];
-      bookmark.unshift(item);
-      localStorage.setItem("bookmark", JSON.stringify(bookmark));
-      setBookmarkState(JSON.parse(localStorage.getItem("bookmark")));
-    }
-    setModalState(false);
   };
 
-  const handleBookmark = (e, item) => {
-    const bookmark = JSON.parse(localStorage.getItem("bookmark")) || [];
-    const existingItemIndex = bookmark.findIndex((x) => x.id === item.id);
-    const isExistingItem = existingItemIndex !== -1;
-
-    if (isExistingItem) {
-      bookmark.splice(existingItemIndex, 1);
-    } else {
-      bookmark.unshift(item);
+  const handleModalClose = () => {
+    if (isBookmarked && !willBookmarked) {
+      const updatedBookmarkState = updateBookmarkState();
+      setBookmarkState(updatedBookmarkState);
+      notifyDeleteBookmark();
     }
+    if (!isBookmarked && willBookmarked) {
+      const updatedBookmarkState = updateBookmarkState();
+      setBookmarkState(updatedBookmarkState);
+      notifyBookmark();
+    }
+    setShowModal(false);
+  };
 
-    localStorage.setItem("bookmark", JSON.stringify(bookmark));
-    setBookmarkState(JSON.parse(localStorage.getItem("bookmark")));
+  const handleBookmark = () => {
+    const updatedBookmarkState = updateBookmarkState();
+    setBookmarkState(updatedBookmarkState);
     isBookmarked ? notifyDeleteBookmark() : notifyBookmark();
   };
 
+  useEffect(() => {
+    localStorage.setItem("bookmark", JSON.stringify(bookmarkState));
+  }, [bookmarkState]);
+
   return (
     <>
-      {modalState && (
+      {showModal && (
         <Modal
           imageUrl={item.image_url || item.brand_image_url}
           handleModalClose={handleModalClose}
@@ -70,8 +75,8 @@ const Item = ({ item, setBookmarkState, isBookmarked }) => {
             className={isBookmarked ? styles.yellowstar : styles.star}
             size="lg"
             icon={faStar}
-            onClick={(e) => {
-              handleBookmark(e, item);
+            onClick={() => {
+              handleBookmark();
             }}
           />
         </div>
