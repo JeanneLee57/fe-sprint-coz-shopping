@@ -12,7 +12,7 @@ function Header(prop) {
     prop.setShowDropdown(false);
   };
   return (
-    <div className={styles.header}>
+    <header className={styles.header}>
       {" "}
       <Link to="/">
         <div className={styles.wrapper} onClick={closeDropdown}>
@@ -27,7 +27,7 @@ function Header(prop) {
         size="2x"
         icon={faBars}
       />
-    </div>
+    </header>
   );
 }
 

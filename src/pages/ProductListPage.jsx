@@ -3,7 +3,7 @@ import Types from "../components/Types";
 import styles from "./ProductListPage.module.css";
 import { useEffect, useState, useRef } from "react";
 import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function ProductListPage({ bookmarkState, setBookmarkState }) {
@@ -11,11 +11,19 @@ function ProductListPage({ bookmarkState, setBookmarkState }) {
   const [showData, setShowData] = useState([]);
   const [currentType, setCurrentType] = useState("all");
 
+  const ITEMS_PER_PAGE = 12;
   const obsRef = useRef(null); //observer Element
   const [page, setPage] = useState(1); //현재 페이지
   const [load, setLoad] = useState(false); //로딩 스피너
   const preventRef = useRef(true); //옵저버 중복 실행 방지
   const endRef = useRef(false); //모든 글 로드 확인
+  const lastPageByTypes = {
+    all: 0,
+    Brand: 0,
+    Category: 0,
+    Product: 0,
+    Exhibition: 0,
+  };
 
   const checkIsBookmarked = (item) => {
     if (bookmarkState) {
@@ -25,22 +33,25 @@ function ProductListPage({ bookmarkState, setBookmarkState }) {
   };
 
   useEffect(() => {
-    axios
-      .get("http://cozshopping.codestates-seb.link/api/v1/products", {
-        method: "GET",
-      })
-      .then((res) => {
-        setData(res.data);
-      })
-      .then(() => {
-        const observer = new IntersectionObserver(obsHandler, {
-          threshold: 1.0,
-        });
-        if (obsRef.current) observer.observe(obsRef.current);
-        return () => {
-          observer.disconnect();
-        };
-      });
+    const getData = async () => {
+      const response = await axios.get(
+        "http://cozshopping.codestates-seb.link/api/v1/products"
+      );
+      setData(response.data);
+    };
+    getData();
+    data.forEach((item) => {
+      lastPageByTypes[all] += 1;
+      lastPageByTypes[item.type] += 1;
+    });
+    console.log(lastPageByTypes);
+    const observer = new IntersectionObserver(obsHandler, {
+      threshold: 1.0,
+    });
+    if (obsRef.current) observer.observe(obsRef.current);
+    return () => {
+      observer.disconnect();
+    };
   }, []);
 
   /* 옵저버 생성 */
@@ -54,7 +65,7 @@ function ProductListPage({ bookmarkState, setBookmarkState }) {
 
   /* 페칭 이후 보여줄 데이터 및 페이지 초기화 */
   useEffect(() => {
-    setShowData(data.slice(0, 12));
+    setShowData(data.slice(0, ITEMS_PER_PAGE));
     setPage(1);
   }, [data]);
 
@@ -65,7 +76,7 @@ function ProductListPage({ bookmarkState, setBookmarkState }) {
         .filter((item) =>
           currentType === "all" ? true : item.type === currentType
         )
-        .slice(0, 12)
+        .slice(0, ITEMS_PER_PAGE)
     );
     setPage(1);
   }, [currentType]);
@@ -88,11 +99,11 @@ function ProductListPage({ bookmarkState, setBookmarkState }) {
           .filter((item) =>
             currentType === "all" ? true : item.type === currentType
           )
-          .slice((page - 1) * 12, page * 12),
+          .slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE),
       ]);
       preventRef.current = true;
       setLoad(false);
-    }, 1000);
+    }, 500);
   };
 
   return (

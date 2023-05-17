@@ -4,7 +4,7 @@ import { faGift } from "@fortawesome/free-solid-svg-icons";
 import { faStar } from "@fortawesome/free-regular-svg-icons";
 import { Link } from "react-router-dom";
 
-function Dropdown({ showDropdown, setShowDropdown }) {
+function Dropdown({ setShowDropdown }) {
   const handleClick = () => {
     setShowDropdown((prev) => !prev);
   };
