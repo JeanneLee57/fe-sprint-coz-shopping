@@ -8,25 +8,15 @@ import { toast } from "react-toastify";
 const Item = ({ item, bookmarkState, setBookmarkState, isBookmarked }) => {
   const [showModal, setShowModal] = useState(false);
   const [willBookmarked, setWillBookmarked] = useState(false);
+
   const notifyBookmark = () => toast("상품이 북마크에 추가되었을지도..?");
-  const notifyDeleteBookmark = () => toast("상품이 북마크에 삭제되었을지도..?");
+
+  const notifyDeleteBookmark = () =>
+    toast("상품이 북마크에서 삭제되었을지도..?");
 
   const handleModalOpen = () => {
     setShowModal(true);
     setWillBookmarked(isBookmarked);
-  };
-  const updateBookmarkState = () => {
-    if (isBookmarked) {
-      const existingItemIndex = bookmarkState.findIndex(
-        (x) => x.id === item.id
-      );
-      const updatedBookmarkState = [...bookmarkState];
-      updatedBookmarkState.splice(existingItemIndex, 1);
-      return updatedBookmarkState;
-    } else {
-      const updatedBookmarkState = [item, ...bookmarkState];
-      return updatedBookmarkState;
-    }
   };
 
   const handleModalClose = () => {
@@ -41,6 +31,20 @@ const Item = ({ item, bookmarkState, setBookmarkState, isBookmarked }) => {
       notifyBookmark();
     }
     setShowModal(false);
+  };
+
+  const updateBookmarkState = () => {
+    if (isBookmarked) {
+      const existingItemIndex = bookmarkState.findIndex(
+        (x) => x.id === item.id
+      );
+      const updatedBookmarkState = [...bookmarkState];
+      updatedBookmarkState.splice(existingItemIndex, 1);
+      return updatedBookmarkState;
+    } else {
+      const updatedBookmarkState = [item, ...bookmarkState];
+      return updatedBookmarkState;
+    }
   };
 
   const handleBookmark = () => {

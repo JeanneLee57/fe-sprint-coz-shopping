@@ -9,13 +9,13 @@ import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
 function App() {
   const [showDropdown, setShowDropdown] = useState(false);
-  // const bookmark = JSON.parse(localStorage.getItem("bookmark"));
-  const [bookmarkState, setBookmarkState] = useState([]);
+  const bookmark = JSON.parse(localStorage.getItem("bookmark"));
+  const [bookmarkState, setBookmarkState] = useState(bookmark || []);
 
   return (
     <>
       <BrowserRouter>
-        <Header setShowDropdown={setShowDropdown} showDropdown={showDropdown} />
+        <Header setShowDropdown={setShowDropdown} />
         {showDropdown && (
           <Dropdown
             setShowDropdown={setShowDropdown}

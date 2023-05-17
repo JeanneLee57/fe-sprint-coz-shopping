@@ -3,16 +3,17 @@ import Types from "../components/Types";
 import styles from "./ProductListPage.module.css";
 import Error from "../components/UI/Error";
 import { useState, useEffect, useRef } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-function BookmarkListPage({ bookmarkState = [], setBookmarkState }) {
-  const [showData, setShowData] = useState([]);
+function BookmarkListPage({ bookmarkState, setBookmarkState }) {
+  const [displayData, setDisplayData] = useState([]);
   const [currentType, setCurrentType] = useState("all");
 
+  const ITEMS_PER_PAGE = 12;
   const obsRef = useRef(null); //observer Element
   const [page, setPage] = useState(1); //현재 페이지
-  const [load, setLoad] = useState(false); //로딩 스피너
+  const [isLoading, setIsLoading] = useState(false); //로딩 스피너
   const preventRef = useRef(true); //옵저버 중복 실행 방지
   const endRef = useRef(false); //모든 글 로드 확인
 
@@ -25,8 +26,8 @@ function BookmarkListPage({ bookmarkState = [], setBookmarkState }) {
   };
 
   /* 화면에 표시할 데이터를 업데이트 */
-  const updateShowData = (start, end) => {
-    setShowData(
+  const updateDisplayData = (start, end) => {
+    setDisplayData(
       bookmarkState
         .filter((item) =>
           currentType === "all" ? true : item.type === currentType
@@ -55,41 +56,39 @@ function BookmarkListPage({ bookmarkState = [], setBookmarkState }) {
     }
   };
 
-  /* 데이터를 삭제하면 보여줄 데이터를 재설정 */
+  /* 북마크를 삭제하면 보여줄 데이터를 재설정 */
   useEffect(() => {
-    updateShowData(0, page * 12);
+    updateDisplayData(0, page * ITEMS_PER_PAGE);
   }, [bookmarkState]);
 
   /* 타입을 변경하면 보여줄 데이터를 재설정하고 페이지 초기화 */
   useEffect(() => {
-    updateShowData(0, 12);
+    updateDisplayData(0, ITEMS_PER_PAGE);
     setPage(1);
   }, [currentType]);
 
   /* 페이지 변경시 보여줄 데이터를 재설정 */
   useEffect(() => {
-    if (page !== 1 && !load) getPost();
+    if (page !== 1 && !isLoading) getPost();
   }, [page]);
 
   let timer = null;
   const getPost = () => {
-    setLoad(true);
-    // 이전에 예약된 setTimeout이 있으면 취소
+    setIsLoading(true);
     if (timer) {
       clearTimeout(timer);
     }
-    // 1초 후에 setShowData를 실행하는 setTimeout 예약
     timer = setTimeout(() => {
-      setShowData((prev) => [
+      setDisplayData((prev) => [
         ...prev,
         ...bookmarkState
           .filter((item) =>
             currentType === "all" ? true : item.type === currentType
           )
-          .slice((page - 1) * 12, page * 12),
+          .slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE),
       ]);
       preventRef.current = true;
-      setLoad(false);
+      setIsLoading(false);
     }, 500);
   };
 
@@ -106,9 +105,9 @@ function BookmarkListPage({ bookmarkState = [], setBookmarkState }) {
         {" "}
         <div className={styles.itemBox}>
           {bookmarkState && bookmarkState.length !== 0 ? (
-            showData.map((item) => (
+            displayData.map((item) => (
               <Item
-                key={item.id_ + "_" + Math.random()}
+                key={item.id_ + "_"}
                 item={item}
                 isBookmarked={checkIsBookmarked(item)}
                 bookmarkState={bookmarkState}
@@ -119,7 +118,7 @@ function BookmarkListPage({ bookmarkState = [], setBookmarkState }) {
             <Error />
           )}
         </div>
-        {load && (
+        {isLoading && (
           <div className={styles.ldsring}>
             <div></div>
             <div></div>

@@ -4,6 +4,7 @@ import Error from "./UI/Error";
 import { useState } from "react";
 
 function BookmarkList({ bookmarkState, setBookmarkState }) {
+  const ITEMS_PER_DIV = 4;
   const checkIsBookmarked = (item) => {
     if (bookmarkState) {
       return bookmarkState.some((x) => x.id === item.id);
@@ -16,7 +17,7 @@ function BookmarkList({ bookmarkState, setBookmarkState }) {
       <div className={styles.listWrapper}>
         {bookmarkState && bookmarkState.length !== 0 ? (
           bookmarkState
-            .slice(0, 4)
+            .slice(0, ITEMS_PER_DIV)
             .map((item) => (
               <Item
                 item={item}
