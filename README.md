@@ -4,6 +4,10 @@
 
 <br>
 
+![스크린샷 2023-05-18 오후 3 53 17](https://github.com/JeanneLee57/fe-sprint-coz-shopping/assets/122351417/d531b7c8-5ce5-48c1-80a6-2e793c4d3448)
+
+![메인1](https://github.com/JeanneLee57/fe-sprint-coz-shopping/assets/122351417/c947785b-c528-4cc2-96d2-6041250533f3)
+
 # Stack
 
 - Javascript
