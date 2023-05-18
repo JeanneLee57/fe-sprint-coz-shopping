@@ -41,7 +41,7 @@ function Type({ type, currentType, setCurrentType }) {
 
   return (
     <div className={styles.typeBox} onClick={handleClick}>
-      <img src={imgSrc} alt={type} />
+      <img src={imgSrc} alt="" />
       <div className={currentType === type ? styles.colored : styles.title}>
         {title}
       </div>

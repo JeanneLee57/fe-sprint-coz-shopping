@@ -85,7 +85,6 @@ function ProductListPage({ bookmarkState, setBookmarkState }) {
 
   /* 페이지가 바뀌면 보여줄 데이터를 추가 */
   useEffect(() => {
-    console.log(page + "/" + endPage);
     if (page !== 1) getPost();
   }, [page]);
 

@@ -4,19 +4,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
-function Header(prop) {
+function Header({ showDropdown, setShowDropdown }) {
   const handleDropdown = () => {
-    prop.setShowDropdown(!prop.showDropdown);
-  };
-  const closeDropdown = () => {
-    prop.setShowDropdown(false);
+    setShowDropdown(!showDropdown);
   };
   return (
     <header className={styles.header}>
       {" "}
       <Link to="/">
-        <div className={styles.wrapper} onClick={closeDropdown}>
-          <img className={styles.logo} src={logo}></img>{" "}
+        <div className={styles.wrapper}>
+          <img className={styles.logo} src={logo} alt="로고" />{" "}
           <span className={styles.title}>COZ Shopping</span>{" "}
         </div>{" "}
       </Link>

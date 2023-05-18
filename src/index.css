@@ -31,3 +31,7 @@ justify-content: center;
 --toastify-color-progress-light: linear-gradient(to right, #e66465, #9198e5);
 --toastify-font-family: 'Inter';
 }
+
+body.modalOpen {
+    overflow: hidden;
+}
