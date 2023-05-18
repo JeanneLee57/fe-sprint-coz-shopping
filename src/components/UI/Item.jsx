@@ -9,10 +9,9 @@ const Item = ({ item, bookmarkState, setBookmarkState, isBookmarked }) => {
   const [showModal, setShowModal] = useState(false);
   const [willBookmarked, setWillBookmarked] = useState(false);
 
-  const notifyBookmark = () => toast("상품이 북마크에 추가되었을지도..?");
+  const notifyBookmark = () => toast("상품이 북마크에 추가되었습니다.");
 
-  const notifyDeleteBookmark = () =>
-    toast("상품이 북마크에서 삭제되었을지도..?");
+  const notifyDeleteBookmark = () => toast("상품이 북마크에서 삭제되었습니다.");
 
   const handleModalOpen = () => {
     setShowModal(true);
@@ -32,6 +31,14 @@ const Item = ({ item, bookmarkState, setBookmarkState, isBookmarked }) => {
     }
     setShowModal(false);
   };
+
+  useEffect(() => {
+    if (showModal) {
+      document.body.classList.add("modalOpen");
+    } else {
+      document.body.classList.remove("modalOpen");
+    }
+  }, [showModal]);
 
   const updateBookmarkState = () => {
     if (isBookmarked) {
@@ -73,6 +80,7 @@ const Item = ({ item, bookmarkState, setBookmarkState, isBookmarked }) => {
           <img
             className={styles.image}
             src={item.image_url ? item.image_url : item.brand_image_url}
+            alt="상품 이미지"
             onClick={handleModalOpen}
           />
           <FontAwesomeIcon

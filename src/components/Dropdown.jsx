@@ -9,27 +9,33 @@ function Dropdown({ setShowDropdown }) {
     setShowDropdown((prev) => !prev);
   };
   return (
-    <>
-      <div className={styles.bubble}>
-        <div className={styles.menu}>kuromi님 안녕하세요!</div>
-        <div className={styles.menu}>
-          <Link to="/products">
-            <span className={styles.button} onClick={handleClick}>
-              <FontAwesomeIcon className={styles.logo} icon={faGift} />{" "}
-              상품리스트 페이지
-            </span>
-          </Link>
-        </div>
-        <div className={styles.menu}>
-          <Link to="/bookmark">
-            <span className={styles.button} onClick={handleClick}>
-              <FontAwesomeIcon className={styles.logo} icon={faStar} /> 북마크
-              페이지
-            </span>
-          </Link>
-        </div>
+    <div
+      className={styles.bubble}
+      onMouseOver={() => {
+        setShowDropdown(true);
+      }}
+      onMouseOut={() => {
+        setShowDropdown(false);
+      }}
+    >
+      <div className={styles.menu}>kuromi님 안녕하세요!</div>
+      <div className={styles.menu}>
+        <Link to="/products">
+          <span className={styles.button} onClick={handleClick}>
+            <FontAwesomeIcon className={styles.logo} icon={faGift} /> 상품리스트
+            페이지
+          </span>
+        </Link>
       </div>
-    </>
+      <div className={styles.menu}>
+        <Link to="/bookmark">
+          <span className={styles.button} onClick={handleClick}>
+            <FontAwesomeIcon className={styles.logo} icon={faStar} /> 북마크
+            페이지
+          </span>
+        </Link>
+      </div>
+    </div>
   );
 }
 

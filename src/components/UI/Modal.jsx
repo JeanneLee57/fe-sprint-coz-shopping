@@ -30,7 +30,7 @@ const Modal = ({
           color="white"
           onClick={handleModalClose}
         />
-        <img className={classes.img} src={imageUrl} alt="modalImg" />
+        <img className={classes.img} src={imageUrl} alt="상품 이미지" />
         <span className={classes.title}>{title}</span>
         <FontAwesomeIcon
           className={willBookmarked ? classes.bookcolor : classes.bookmark}

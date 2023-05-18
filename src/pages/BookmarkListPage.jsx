@@ -15,7 +15,6 @@ function BookmarkListPage({ bookmarkState, setBookmarkState }) {
   const [page, setPage] = useState(1); //현재 페이지
   const [isLoading, setIsLoading] = useState(false); //로딩 스피너
   const preventRef = useRef(true); //옵저버 중복 실행 방지
-  const endRef = useRef(false); //모든 글 로드 확인
 
   /* 북마크된 요소인지 확인(prop 전달용) */
   const checkIsBookmarked = (item) => {

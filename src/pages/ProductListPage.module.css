@@ -37,7 +37,7 @@ margin:10px;
     position: relative;
     width: 80px;
     height: 80px;
-    margin: 100px 0 70px 0;
+    margin: 50px 0 50px 0;
   }
   .ldsring div {
     box-sizing: border-box;
@@ -68,5 +68,4 @@ margin:10px;
       transform: rotate(360deg);
     }
   }
-  
   
