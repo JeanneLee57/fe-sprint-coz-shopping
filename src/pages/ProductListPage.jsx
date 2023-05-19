@@ -1,4 +1,4 @@
-import Item from "../components/UI/Item";
+import Item from "../components/UI/Item/Index";
 import Types from "../components/Types";
 import styles from "./ProductListPage.module.css";
 import { useEffect, useState, useRef, useMemo } from "react";
@@ -9,10 +9,9 @@ import "react-toastify/dist/ReactToastify.css";
 function ProductListPage({ bookmarkState, setBookmarkState }) {
   const [data, setData] = useState([]);
   const [currentType, setCurrentType] = useState("all");
-  //const [endPage, setEndPage] = useState(0);
   const ITEMS_PER_PAGE = 12;
-  const obsRef = useRef(null); //observer Element
-  const [page, setPage] = useState(1); //현재 페이지
+  const obsRef = useRef(null);
+  const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
 
   const checkIsBookmarked = (item) => {
@@ -41,7 +40,6 @@ function ProductListPage({ bookmarkState, setBookmarkState }) {
 
   /* 옵저버 콜백함수 */
   const obsHandler = (entries) => {
-    //console.log(endPage);
     setIsLoading(true);
     setTimeout(() => {
       const target = entries[0];

@@ -1,7 +1,6 @@
-import styles from "./BookmarkList.module.css";
-import Item from "./UI/Item";
+import Item from "./UI/Item/Index";
 import Error from "./UI/Error";
-import { useState } from "react";
+import styles from "./BookmarkList.module.css";
 
 function BookmarkList({ bookmarkState, setBookmarkState }) {
   const ITEMS_PER_DIV = 4;

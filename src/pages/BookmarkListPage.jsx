@@ -1,4 +1,4 @@
-import Item from "../components/UI/Item";
+import Item from "../components/UI/Item/Index";
 import Types from "../components/Types";
 import styles from "./ProductListPage.module.css";
 import Error from "../components/UI/Error";

@@ -1,4 +1,4 @@
-import Item from "./UI/Item";
+import Item from "./UI/Item/Index";
 import styles from "./ProductList.module.css";
 import { useEffect, useState } from "react";
 import axios from "axios";

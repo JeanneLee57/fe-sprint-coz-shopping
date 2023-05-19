@@ -1,5 +1,6 @@
 import styles from "./Item.module.css";
-import Modal from "./Modal";
+import Modal from "../Modal";
+import Detail from "./Detail";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
@@ -64,6 +65,19 @@ const Item = ({ item, bookmarkState, setBookmarkState, isBookmarked }) => {
     localStorage.setItem("bookmark", JSON.stringify(bookmarkState));
   }, [bookmarkState]);
 
+  const additionalInfo = () => {
+    switch (item.type) {
+      case "Brand":
+        return <span className={styles.brand}>관심고객수</span>;
+      case "Product":
+        return (
+          <span className={styles.discount}>{item.discountPercentage}%</span>
+        );
+      default:
+        return "";
+    }
+  };
+
   return (
     <>
       {showModal && (
@@ -98,40 +112,9 @@ const Item = ({ item, bookmarkState, setBookmarkState, isBookmarked }) => {
               {item.title ? item.title : item.brand_name}
             </h1>
           }
-          {(() => {
-            switch (item.type) {
-              case "Brand":
-                return <span className={styles.brand}>관심고객수</span>;
-              case "Product":
-                return (
-                  <span className={styles.discount}>
-                    {item.discountPercentage}%
-                  </span>
-                );
-              default:
-                return "";
-            }
-          })()}
+          {additionalInfo()}
         </div>
-        <div className={styles.detail}>
-          <span>{item.sub_title ? item.sub_title : ""}</span>
-          <span className={styles.numbers}>
-            {(() => {
-              switch (item.type) {
-                case "Product":
-                  return `${item.price
-                    .toString()
-                    .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}원`;
-                case "Brand":
-                  return item.follower
-                    .toString()
-                    .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-                default:
-                  return "";
-              }
-            })()}
-          </span>
-        </div>
+        <Detail item={item} />
       </div>
     </>
   );

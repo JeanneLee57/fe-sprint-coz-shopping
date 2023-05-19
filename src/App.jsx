@@ -5,7 +5,7 @@ import ProductListPage from "./pages/ProductListPage";
 import BookmarkListPage from "./pages/BookmarkListPage";
 import Footer from "./components/Footer";
 import { useState } from "react";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   const [showDropdown, setShowDropdown] = useState(false);
