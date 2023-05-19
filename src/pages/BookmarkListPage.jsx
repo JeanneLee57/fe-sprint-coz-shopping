@@ -37,7 +37,7 @@ function BookmarkListPage({ bookmarkState, setBookmarkState }) {
     setIsLoading(true);
     setTimeout(() => {
       const target = entries[0];
-      if (target.isIntersecting && !isLoading) {
+      if (target.isIntersecting) {
         setPage((prev) => prev + 1);
       }
       setIsLoading(false);
@@ -68,7 +68,7 @@ function BookmarkListPage({ bookmarkState, setBookmarkState }) {
               .slice(0, ITEMS_PER_PAGE * page)
               .map((item) => (
                 <Item
-                  key={item.id_ + "_"}
+                  key={item.id}
                   item={item}
                   isBookmarked={checkIsBookmarked(item)}
                   bookmarkState={bookmarkState}

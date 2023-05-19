@@ -20,6 +20,7 @@ function BookmarkList({ bookmarkState, setBookmarkState }) {
             .slice(0, ITEMS_PER_DIV)
             .map((item) => (
               <Item
+                key={item.id}
                 item={item}
                 isBookmarked={checkIsBookmarked(item)}
                 bookmarkState={bookmarkState}
