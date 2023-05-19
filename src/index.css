@@ -1,0 +1,37 @@
+* {
+margin:0;
+padding:0;
+box-sizing: border-box;
+text-decoration: none;
+}
+
+body{
+font-family: 'Inter';
+font-style: normal;
+}
+
+main{
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+
+footer{
+margin: 50px 0;
+border-top: 0.5px solid #888888;
+padding: 40px;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+}
+
+:root {
+--toastify-z-index: 9999;
+--toastify-color-progress-light: linear-gradient(to right, #e66465, #9198e5);
+--toastify-font-family: 'Inter';
+}
+
+body.modalOpen {
+    overflow: hidden;
+}
