@@ -41,6 +41,7 @@ function ProductListPage({ bookmarkState, setBookmarkState }) {
 
   /* 옵저버 콜백함수 */
   const obsHandler = (entries) => {
+    //console.log(endPage);
     setIsLoading(true);
     setTimeout(() => {
       const target = entries[0];
@@ -53,7 +54,6 @@ function ProductListPage({ bookmarkState, setBookmarkState }) {
 
   // useMemo
   const filteredItem = useMemo(() => {
-    //setEndPage(Math.ceil(filteredItem.length / ITEMS_PER_PAGE));
     if (currentType === "all") {
       return data;
     } else return data.filter((item) => item.type === currentType);
@@ -69,8 +69,9 @@ function ProductListPage({ bookmarkState, setBookmarkState }) {
       />
       <Types currentType={currentType} setCurrentType={setCurrentType} />
       <div className={styles.itemBox}>
-        {filteredItem.slice(0, page * ITEMS_PER_PAGE).map((item) => (
+        {filteredItem.slice(0, ITEMS_PER_PAGE * page).map((item) => (
           <Item
+            key={item.id}
             item={item}
             isBookmarked={checkIsBookmarked(item)}
             bookmarkState={bookmarkState}

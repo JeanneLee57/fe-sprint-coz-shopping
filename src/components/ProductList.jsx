@@ -33,6 +33,7 @@ function ProductList({ bookmarkState, setBookmarkState }) {
         {data.map((item) => {
           return (
             <Item
+              key={item.id}
               item={item}
               isBookmarked={checkIsBookmarked(item)}
               bookmarkState={bookmarkState}
