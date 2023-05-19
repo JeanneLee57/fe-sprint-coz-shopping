@@ -7,6 +7,7 @@ function Types({ currentType, setCurrentType }) {
     <div className={styles.types}>
       {types.map((type) => (
         <Type
+          key={type}
           type={type}
           currentType={currentType}
           setCurrentType={setCurrentType}
