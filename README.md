@@ -19,7 +19,7 @@
 
 # 배포 링크
 
-.
+[링크](https://jeannelee57.github.io/fe-sprint-coz-shopping/)
 
 <br>
 
