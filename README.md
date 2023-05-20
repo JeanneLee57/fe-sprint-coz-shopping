@@ -90,6 +90,12 @@ fe-sprint-coz-shopping
 
 # 기능 설명/아쉬운 점
 
+### 프로젝트 회고 블로그 링크
+
+[링크](https://sulki.tistory.com/103)
+
+<br>
+
 ### 라우팅
 
 리액트 라우터 버전6의 `createBrowserRouter`와 data api를 사용하는 것을 고민했으나 여러 라우트 간에 서버를 통해 주고받아야 할 데이터가 있는 것 같지는 않아서 `BrowserRouter`만을 사용해 라우팅을 구현했습니다.
